@@ -10,6 +10,7 @@ from clients.views import NewsletterListView, NewsletterCreateView, NewsletterDe
 app_name = ClientsConfig.name
 
 urlpatterns = [
+
     path('', cache_page(60)(NewsletterListView.as_view()), name='newsletter_list'),
     path('create/', NewsletterCreateView.as_view(), name='newsletter_create'),
     path('detail/<int:pk>/', NewsletterDetailView.as_view(), name='newsletter_detail'),

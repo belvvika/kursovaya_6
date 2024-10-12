@@ -10,7 +10,7 @@ from clients.models import Newsletter, Client, Message, MailingAttempt
 
 class NewsletterListView(ListView):
     model = Newsletter
-    template_name = "client/mailingsettings_list.html"
+    template_name = "client/newsletter_list.html"
 
     def get_context_data(self):
         context = super().get_context_data()
