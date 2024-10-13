@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterModelOptions(
-            name='user',
+            name='users',
             options={'permissions': [('can_view_the_list_of_service_users', 'Can view the list of service users'), ('can_block_users_of_the_service', 'Can block users of the service')], 'verbose_name': 'Пользователь', 'verbose_name_plural': ('Пользователи',)},
         ),
     ]

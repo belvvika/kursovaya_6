@@ -14,7 +14,7 @@ from users.models import User
 class UserCreateView(CreateView):
     model = User
     form_class = UserRegisterForm
-    success_url = reverse_lazy('user:login')
+    success_url = reverse_lazy('users:login')
 
     def form_valid(self, form):
         user = form.save()
@@ -23,7 +23,7 @@ class UserCreateView(CreateView):
         user.token = token
         user.save()
         host = self.request.get_host()
-        url = f'http://{host}/user/email-confirm/{token}/'
+        url = f'http://{host}/users/email-confirm/{token}/'
         send_mail(
             subject='Подтверждение почты',
             message=f'Для подтверждения аккаунта перейдите по ссылке: {url}',
@@ -37,27 +37,27 @@ def email_verification(request, token):
     user = get_object_or_404(User, token=token)
     user.is_active = True
     user.save()
-    return redirect(reverse('user:login'))
+    return redirect(reverse('users:login'))
 
 
 class UserListView(ListView):
     model = User
-    template_name = 'user/user_list.html'
+    template_name = 'users/user_list.html'
 
 
 class UserModeratorView(LoginRequiredMixin, UpdateView):
     model = User
     form_class = UserUpdateModeratorForm
-    success_url = reverse_lazy('user:user_list')
+    success_url = reverse_lazy('users:user_list')
 
 
 class ProfileView(LoginRequiredMixin, UpdateView):
     model = User
     form_class = UserProfileForm
-    template_name = 'user/user_form.html'
+    template_name = 'users/user_form.html'
 
     def get_object(self, queryset=None):
         return self.request.user
 
     def get_success_url(self):
-        return reverse_lazy('user:profile', kwargs={'pk': self.request.user.pk})
+        return reverse_lazy('users:profile', kwargs={'pk': self.request.user.pk})
